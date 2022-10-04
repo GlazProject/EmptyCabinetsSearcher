@@ -6,27 +6,27 @@ package ru.telegramBot.GM.readers;
  * Желательно его не изменять, но существуют модификаторы доступа.
  */
 public class RequestData {
-    private String m_sText;
+    private String dataText;
 
     /**
-     * @param sText Данные для упаковки
+     * @param text Данные для упаковки
      */
-    public RequestData(String sText){
-        m_sText = sText;
+    public RequestData(String text){
+        this.dataText = text;
     }
 
     /**
      * @return Значение строки из контейнера
      */
     public String getText() {
-        return m_sText;
+        return dataText;
     }
 
     /**
      * Не рекомендуется к использованию!
-     * @param sText Текст, который необходимо упаковать в контейнер
+     * @param text Текст, который необходимо упаковать в контейнер
      */
-    public void setText(String sText) {
-        m_sText = sText;
+    public void setText(String text) {
+        this.dataText = text;
     }
 }

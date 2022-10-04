@@ -15,14 +15,14 @@ import java.util.Objects;
 public class Main {
 
     public static void main(String[] args) {
-        readAndDoWhileNotEmptyString();
+        consoleEchoBot();
     }
 
     /**
      * Простой эхо ответчик для консоли.
      * Останавливает считываниие и ответ при вводе пустой строки
      */
-    public static void readAndDoWhileNotEmptyString() {
+    public static void consoleEchoBot() {
         Reader reader = new ConsoleReader();
         Writer writer = new ConsoleWriter();
         Handler handler = new SimpleEchoHandler();
