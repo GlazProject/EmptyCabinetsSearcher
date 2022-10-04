@@ -19,12 +19,4 @@ public class ResponseData {
     public String getText() {
         return dataText;
     }
-
-    /**
-     * Не рекомендуется к использованию!
-     * @param text Текст, который необходимо упаковать в контейнер
-     */
-    public void setText(String text) {
-        dataText = text;
-    }
 }
