@@ -1,12 +1,12 @@
-package ru.telegramBot.GM.writers;
+package ru.telegramBot.gm.writers;
 
 /**
  * Интерфейс для вывода обработанных данных в какую-либо среду
  */
-public interface Writer {
+public interface Writer<T> {
     /**
      * Главный метод писателя, который выводит данный контейнера в какую-либо среду
      * @param data Контейнер с обработанной информацией
      */
-    void write(ResponseData data);
+    void write(T data);
 }

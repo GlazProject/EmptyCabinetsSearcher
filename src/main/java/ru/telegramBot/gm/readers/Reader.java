@@ -1,13 +1,13 @@
-package ru.telegramBot.GM.readers;
+package ru.telegramBot.gm.readers;
 
 /**
  * Интерфейс обеспечивающий чтение данных из разных источников
  * Всегда возвращает упакованный контейнер
  */
-public interface Reader {
+public interface Reader<T> {
     /**
      * Метод, используемый для чтения данных из какого-либо источника
      * @return Упакованный контейнер с прочтёнными данными
      */
-    RequestData read();
+    RequestData<T> read();
 }

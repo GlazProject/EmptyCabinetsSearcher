@@ -1,9 +1,9 @@
-package ru.telegramBot.GM.writers;
+package ru.telegramBot.gm.writers;
 
 /**
  * Простой класс для вывода данных из контейнера в консоль
  */
-public class ConsoleWriter implements Writer {
+public class ConsoleWriter implements Writer<ResponseData> {
 
     /**
      * Основной метод вывода данных в консоль

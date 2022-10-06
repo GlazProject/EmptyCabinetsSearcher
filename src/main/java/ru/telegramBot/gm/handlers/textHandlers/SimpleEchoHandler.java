@@ -1,13 +1,13 @@
-package ru.telegramBot.GM.handlers;
+package ru.telegramBot.gm.handlers.textHandlers;
 
-import ru.telegramBot.GM.readers.RequestData;
-import ru.telegramBot.GM.writers.ResponseData;
+import ru.telegramBot.gm.handlers.Handler;
+import ru.telegramBot.gm.writers.ResponseData;
 
 /**
  * Простой обработчик сообщений, возвращающий исходные
  * данные без изменения
  */
-public class SimpleEchoHandler implements Handler {
+public class SimpleEchoHandler implements Handler<String, ResponseData> {
 
     /**
      * Этот метод используется для обработки входных данных
@@ -17,7 +17,7 @@ public class SimpleEchoHandler implements Handler {
      * @return Контейнер с обработанными данными, пригодными для вывода
      */
     @Override
-    public ResponseData handle(RequestData data) {
-        return new ResponseData(data.getText());
+    public ResponseData handle(String data) {
+        return new ResponseData(data);
     }
 }
