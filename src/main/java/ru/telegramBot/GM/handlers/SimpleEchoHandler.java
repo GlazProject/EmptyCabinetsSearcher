@@ -7,7 +7,7 @@ import ru.telegramBot.GM.writers.ResponseData;
  * Простой обработчик сообщений, возвращающий исходные
  * данные без изменения
  */
-public class SimpleEchoHandler implements Handler {
+public class SimpleEchoHandler implements Handler<String, String> {
 
     /**
      * Этот метод используется для обработки входных данных
@@ -17,7 +17,7 @@ public class SimpleEchoHandler implements Handler {
      * @return Контейнер с обработанными данными, пригодными для вывода
      */
     @Override
-    public ResponseData handle(RequestData data) {
-        return new ResponseData(data.getText());
+    public ResponseData<String> handle(RequestData<String> data) {
+        return new ResponseData<>(data.getData());
     }
 }

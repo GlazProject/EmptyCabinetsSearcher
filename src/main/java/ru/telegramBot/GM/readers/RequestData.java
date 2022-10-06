@@ -5,20 +5,20 @@ package ru.telegramBot.GM.readers;
  * Служит для передачи между методами и обработчиками.
  * Желательно его не изменять, но существуют модификаторы доступа.
  */
-public class RequestData {
-    private String dataText;
+public class RequestData<T> {
+    private final T data;
 
     /**
-     * @param text Данные для упаковки
+     * @param inputData Данные для упаковки
      */
-    public RequestData(String text){
-        this.dataText = text;
+    public RequestData(T inputData){
+        data = inputData;
     }
 
     /**
      * @return Значение строки из контейнера
      */
-    public String getText() {
-        return dataText;
+    public T getData() {
+        return data;
     }
 }
