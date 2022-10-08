@@ -1,15 +1,9 @@
-package ru.telegramBot.GM.telegramBot;
+package ru.telegramBot.gm.telegramBot;
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import ru.telegramBot.GM.handlers.Handler;
-import ru.telegramBot.GM.handlers.TelegramBotHandlers;
-import ru.telegramBot.GM.readers.RequestData;
-import ru.telegramBot.GM.readers.TelegramReader;
-import ru.telegramBot.GM.writers.ResponseData;
 
 public class Bot extends TelegramLongPollingBot {
     private final String BOT_NAME;
@@ -32,16 +26,16 @@ public class Bot extends TelegramLongPollingBot {
         return BOT_TOKEN;
     }
 
-
     @Override
     public void onUpdateReceived(Update update) {
-        TelegramReader reader = new TelegramReader();
-        Handler<Message, SendMessage> handler = new TelegramBotHandlers();
-        RequestData<Message> messageRequestData = reader.readFrom(update);
-        ResponseData<SendMessage> responseMessage = handler.handle(messageRequestData);
-        try {
-            execute(responseMessage.getData());
-        } catch (TelegramApiException e) {
+        TelegramHandler handler = new TelegramHandler();
+        TelegramWriter writer = new TelegramWriter();
+        TelegramResponseData telegramRequestData = handler.handle(update);
+        SendMessage message = writer.createMessage(telegramRequestData);
+        try{
+            execute(message);
+        }
+        catch (TelegramApiException e){
             e.printStackTrace();
         }
     }

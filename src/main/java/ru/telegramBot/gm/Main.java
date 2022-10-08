@@ -1,18 +1,18 @@
-package ru.telegramBot.GM;
+package ru.telegramBot.gm;
 
 
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
-import ru.telegramBot.GM.handlers.Handler;
-import ru.telegramBot.GM.handlers.SimpleEchoHandler;
-import ru.telegramBot.GM.readers.ConsoleReader;
-import ru.telegramBot.GM.readers.Reader;
-import ru.telegramBot.GM.readers.RequestData;
-import ru.telegramBot.GM.telegramBot.Bot;
-import ru.telegramBot.GM.writers.ConsoleWriter;
-import ru.telegramBot.GM.writers.ResponseData;
-import ru.telegramBot.GM.writers.Writer;
+import ru.telegramBot.gm.handlers.Handler;
+import ru.telegramBot.gm.handlers.textHandlers.SimpleEchoHandler;
+import ru.telegramBot.gm.readers.ConsoleReader;
+import ru.telegramBot.gm.readers.Reader;
+import ru.telegramBot.gm.readers.RequestData;
+import ru.telegramBot.gm.telegramBot.Bot;
+import ru.telegramBot.gm.writers.ConsoleWriter;
+import ru.telegramBot.gm.writers.ResponseData;
+import ru.telegramBot.gm.writers.Writer;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -24,6 +24,7 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
         telegramEchoBot();
+//        consoleEchoBot();
     }
 
     /**
@@ -32,13 +33,13 @@ public class Main {
      */
     public static void consoleEchoBot() {
         Reader<String> reader = new ConsoleReader();
-        Writer<String> writer = new ConsoleWriter();
-        Handler<String, String> handler = new SimpleEchoHandler();
+        Writer<ResponseData> writer = new ConsoleWriter();
+        Handler<String, ResponseData> handler = new SimpleEchoHandler();
 
         while (true) {
             RequestData<String> requestData = reader.read();
-            ResponseData<String> responseData = handler.handle(requestData);
-            if (Objects.equals(responseData.getData(), "")) break;
+            ResponseData responseData = handler.handle(requestData.getData());
+            if (Objects.equals(responseData.getText(), "")) break;
             writer.write(responseData);
         }
     }
@@ -50,21 +51,15 @@ public class Main {
             properties.load(new FileInputStream("src/main/resources/config.properties"));
         } catch (IOException e) {
             throw new FileNotFoundException("Файл конфигурации не найден по адресу ./resources/config.properties");
-//            System.out.println("Файл конфигурации не найден по адресу ./resources/config.properties");
-//            return;
         }
 
         String botName = properties.getProperty("bot.name");
         String botToken = properties.getProperty("bot.token");
-        if (botName == null){
+        if (botName == null) {
             throw new IllegalArgumentException("Не найдено bot.name в файле конфигурации");
-//            System.out.println("Не найдено bot.name в файле конфигурации");
-//            return;
         }
-        if (botToken == null){
+        if (botToken == null) {
             throw new IllegalArgumentException("Не найдено bot.token в файле конфигурации");
-//            System.out.println("Не найдено bot.token в файле конфигурации");
-//            return;
         }
 
         try {

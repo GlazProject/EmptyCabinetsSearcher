@@ -1,7 +1,4 @@
-package ru.telegramBot.GM.handlers;
-
-import ru.telegramBot.GM.readers.RequestData;
-import ru.telegramBot.GM.writers.ResponseData;
+package ru.telegramBot.gm.handlers;
 
 /**
  * Интерфейс для всех видов обработчиков
@@ -12,5 +9,5 @@ public interface Handler<T_in, T_out> {
      * @param data Данные полученные при чтении
      * @return Контейнер с обработанными данными
      */
-    ResponseData<T_out> handle(RequestData<T_in> data);
+    T_out handle(T_in data);
 }

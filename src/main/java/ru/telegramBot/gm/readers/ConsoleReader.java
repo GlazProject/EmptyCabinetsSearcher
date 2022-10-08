@@ -1,4 +1,4 @@
-package ru.telegramBot.GM.readers;
+package ru.telegramBot.gm.readers;
 
 import java.util.Scanner;
 

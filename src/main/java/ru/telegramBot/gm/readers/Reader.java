@@ -1,4 +1,4 @@
-package ru.telegramBot.GM.readers;
+package ru.telegramBot.gm.readers;
 
 /**
  * Интерфейс обеспечивающий чтение данных из разных источников
