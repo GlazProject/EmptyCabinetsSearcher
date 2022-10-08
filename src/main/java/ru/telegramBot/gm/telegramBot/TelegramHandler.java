@@ -2,7 +2,7 @@ package ru.telegramBot.gm.telegramBot;
 
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import ru.telegramBot.gm.handlers.commandHandlers.CommandsHandler;
+import ru.telegramBot.gm.handlers.CommandsHandler;
 import ru.telegramBot.gm.handlers.Handler;
 import ru.telegramBot.gm.writers.ResponseData;
 

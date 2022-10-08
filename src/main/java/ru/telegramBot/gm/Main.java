@@ -4,8 +4,8 @@ package ru.telegramBot.gm;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
+import ru.telegramBot.gm.handlers.CommandsHandler;
 import ru.telegramBot.gm.handlers.Handler;
-import ru.telegramBot.gm.handlers.textHandlers.SimpleEchoHandler;
 import ru.telegramBot.gm.readers.ConsoleReader;
 import ru.telegramBot.gm.readers.Reader;
 import ru.telegramBot.gm.readers.RequestData;
@@ -23,8 +23,8 @@ import java.util.Properties;
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
-        telegramEchoBot();
-//        consoleEchoBot();
+//        telegramEchoBot();
+        consoleEchoBot();
     }
 
     /**
@@ -34,12 +34,12 @@ public class Main {
     public static void consoleEchoBot() {
         Reader<String> reader = new ConsoleReader();
         Writer<ResponseData> writer = new ConsoleWriter();
-        Handler<String, ResponseData> handler = new SimpleEchoHandler();
+        Handler<String, ResponseData> handler = new CommandsHandler();
 
         while (true) {
             RequestData<String> requestData = reader.read();
+            if (Objects.equals(requestData.getData(), "")) break;
             ResponseData responseData = handler.handle(requestData.getData());
-            if (Objects.equals(responseData.getText(), "")) break;
             writer.write(responseData);
         }
     }

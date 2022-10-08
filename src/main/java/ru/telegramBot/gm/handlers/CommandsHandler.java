@@ -1,6 +1,7 @@
-package ru.telegramBot.gm.handlers.commandHandlers;
+package ru.telegramBot.gm.handlers;
 
-import ru.telegramBot.gm.handlers.Handler;
+import ru.telegramBot.gm.handlers.commandHandlers.StartCommandHandler;
+import ru.telegramBot.gm.handlers.commandHandlers.UnknownCommandHandler;
 import ru.telegramBot.gm.handlers.textHandlers.TextHandler;
 import ru.telegramBot.gm.writers.ResponseData;
 
