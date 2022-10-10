@@ -1,56 +1,47 @@
 package ru.telegramBot.gm.handlers;
 
 import ru.telegramBot.gm.handlers.commandHandlers.StartCommandHandler;
-import ru.telegramBot.gm.handlers.commandHandlers.UnknownCommandHandler;
-import ru.telegramBot.gm.handlers.textHandlers.TextHandler;
+import ru.telegramBot.gm.handlers.commandHandlers.UnknownOrNonCommandHandler;
+import ru.telegramBot.gm.readers.RequestData;
 import ru.telegramBot.gm.writers.ResponseData;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
-public class CommandsHandler implements Handler<String, ResponseData> {
-    private static class Command{
-        public String command = "";
-        public String text = "";
-    }
-
-    private final Map<String, Handler<String,ResponseData>> handlers;
+/**
+ * Основной класс обработки всех текстовых данных
+ */
+public class CommandsHandler implements Handler {
+    // Все команды и обработчики, которые поддерживает бот
+    private final List<Handler> handlers;
 
     public CommandsHandler(){
-        handlers = new HashMap<>();
-        fillHandlers();
+         handlers = new ArrayList<>();
+         fillHandlers(handlers);
     }
 
+    /**
+     * Метод, выполняющий обраьотку любых текстовых данных (с командой или без)
+     *
+     * @param data Данные полученные при чтении
+     * @return RD, которую формирует конкретный обработчик
+     */
     @Override
-    public ResponseData handle(String data) {
-        Command command = findCommand(data);
-        if (handlers.containsKey(command.command))
-            return handlers.get(command.command).handle(command.text);
-        return new UnknownCommandHandler().handle(command.text);
-    }
-
-    private void fillHandlers(){
-        handlers.put("", new TextHandler());
-        handlers.put("start", new StartCommandHandler());
-    }
-
-    private Command findCommand(String inputText){
-        Command command = new Command();
-        if (inputText.charAt(0) != '/'){
-            command.text = inputText;
-            return command;
+    public ResponseData handle(RequestData data) {
+        for (Handler handler : handlers){
+            ResponseData responseData = handler.handle(data);
+            if (responseData != null)
+                return responseData;
         }
-
-        for (int i=1;i<inputText.length();i++) {
-            if (inputText.charAt(i) == ' ') {
-                command.command = inputText.substring(1, i);
-                command.text = inputText.substring(i + 1);
-                break;
-            }
-            if(i == inputText.length()-1)
-                command.command = inputText.substring(1, i+1);
-        }
-        return command;
+        System.out.println("Не найден обработчик для данных");
+        return null;
     }
 
+    /**
+     * Данный метод заполняет список обработчиков команд
+     */
+    private void fillHandlers(List<Handler> handlers){
+        handlers.add(new StartCommandHandler());
+        handlers.add(new UnknownOrNonCommandHandler());
+    }
 }

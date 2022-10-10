@@ -1,24 +1,33 @@
 package ru.telegramBot.gm.telegramBot;
 
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.telegramBot.gm.handlers.CommandsHandler;
-import ru.telegramBot.gm.handlers.Handler;
+import ru.telegramBot.gm.readers.RequestData;
 import ru.telegramBot.gm.writers.ResponseData;
 
-public class TelegramHandler implements Handler<Update, TelegramResponseData> {
+/**
+ * Обработчик данных, полученных из телеграм.
+ */
 
-    @Override
-    public TelegramResponseData handle(Update data) {
-        if (!data.hasMessage())
-            return null;
-        Message message = data.getMessage();
-        if (!message.hasText())
-            return null;
+/*
+ * Через этот обработчик происходит вся обработка данных, полученных в Update.
+ * Из сообщения выделяется текст и передаётся в обработчика команд
+ */
+public class TelegramHandler {
 
+    /**
+     * Данный метод реализует проверку и обработку сообщения, полученного от Telegram.
+     *
+     * @param data Контейнер с данными, сформированный из сообщения
+     * @param update Обновление, которое вызвало обработку
+     * @return TRD, который содержит сообщение, на которое отвечали, и все данные, сформированные обработчиком.
+     */
+    public TelegramResponseData handle(RequestData data, Update update) {
+        if (data == null)
+            return null;
         CommandsHandler handler = new CommandsHandler();
-        ResponseData responseData = handler.handle(message.getText());
-        return new TelegramResponseData(responseData, message);
+        ResponseData responseData = handler.handle(data);
+        return new TelegramResponseData(responseData, update.getMessage());
     }
 
 }

@@ -4,24 +4,26 @@ package ru.telegramBot.gm.telegramBot;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import ru.telegramBot.gm.writers.ResponseData;
 
-public class TelegramResponseData extends ResponseData {
+/*
+ * Класс, предназначенный для хранения спецефических телеграм данных, в дополнение к данным ответов обработчика
+ */
+public class TelegramResponseData implements ResponseData{
     private final Message originalMessage;
+    private final ResponseData data;
 
     /**
-     * @param inputText Текст, который нужно сохранить в ответе
-     * @param fromMessage Сообщение, в ответ на которое создаём ответ
+     * @param responseData Контейнер, полученный от обработчика
+     * @param fromMessage Сообщение, в ответ на которое формируется ответ
      */
-    public TelegramResponseData(String inputText, Message fromMessage) {
-        super(inputText);
-        originalMessage = fromMessage;
-    }
-
     public TelegramResponseData(ResponseData responseData, Message fromMessage) {
-        super(responseData);
+        data = responseData;
         originalMessage = fromMessage;
     }
 
     public Message getMessage(){
         return originalMessage;
+    }
+    public ResponseData getData() {
+        return data;
     }
 }

@@ -1,23 +1,28 @@
 package ru.telegramBot.gm.handlers.textHandlers;
 
-import ru.telegramBot.gm.handlers.Handler;
+import ru.telegramBot.gm.handlers.HandlerV1;
+import ru.telegramBot.gm.readers.RequestData;
+import ru.telegramBot.gm.readers.RequestDataV1;
 import ru.telegramBot.gm.writers.ResponseData;
+import ru.telegramBot.gm.writers.ResponseDataV1;
 
 /**
  * Простой обработчик сообщений, возвращающий исходные
  * данные без изменения
  */
-public class SimpleEchoHandler implements Handler<String, ResponseData> {
+public class SimpleEchoHandler implements HandlerV1 {
 
     /**
-     * Этот метод используется для обработки входных данных
-     * Возвращает входящие данные без изменения, просто упаковывая
-     * их в новый контейнер
-     * @param data Это контейнер с входными данными
-     * @return Контейнер с обработанными данными, пригодными для вывода
+     * Метод, возвращающий исходную строку
+     *
+     * @param data Это строка с исходным текстом
+     * @return RD с текстом исходной строки в поле text
      */
     @Override
-    public ResponseData handle(String data) {
-        return new ResponseData(data);
+    public ResponseData handle(RequestData data) {
+        if (!correctVersion(data))
+            return null;
+        RequestDataV1 requestData = (RequestDataV1)data;
+        return new ResponseDataV1(requestData.getText());
     }
 }
