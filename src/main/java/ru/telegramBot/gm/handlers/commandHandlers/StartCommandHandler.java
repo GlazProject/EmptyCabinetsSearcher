@@ -1,32 +1,37 @@
 package ru.telegramBot.gm.handlers.commandHandlers;
 
-import ru.telegramBot.gm.handlers.HandlerV1;
+import ru.telegramBot.gm.dataContainer.components.TextComponent;
+import ru.telegramBot.gm.handlers.Handler;
 import ru.telegramBot.gm.readers.RequestData;
-import ru.telegramBot.gm.readers.RequestDataV1;
 import ru.telegramBot.gm.writers.ResponseData;
-import ru.telegramBot.gm.writers.ResponseDataV1;
 
+import javax.annotation.Nullable;
 import java.util.Objects;
 
 /**
  * Обработчик стартовой команды /start
  */
-public class StartCommandHandler implements HandlerV1 {
+public class StartCommandHandler implements Handler {
     /**
      * Метод, возвращающий приветственное сообщение
      *
      * @param data Данные полученные при чтении
      * @return RD с приветственным сообщением в поле text либо null, если другая команда
      */
+    @Nullable
     @Override
     public ResponseData handle(RequestData data) {
-        if (!correctVersion(data))
+        TextComponent textComponent = data.getComponent("text");
+        if (textComponent == null)
             return null;
 
-        RequestDataV1 requestData = (RequestDataV1)data;
-        CommandFinder commandFinder = new CommandFinder(requestData.getText());
-        if (Objects.equals(commandFinder.getCommand(), "start"))
-            return new ResponseDataV1("Привет, рад нашей встрече");
-        return null;
+        CommandFinder commandFinder = new CommandFinder(textComponent.get());
+        if (!Objects.equals(commandFinder.getCommand(), "start"))
+            return null;
+        ResponseData responseData = new ResponseData();
+        responseData.setComponent("text", new TextComponent(){{
+            set("привет, рад нашей встрече");
+        }});
+        return responseData;
     }
 }

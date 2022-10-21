@@ -1,16 +1,14 @@
 package ru.telegramBot.gm.handlers.commandHandlers;
 
-import ru.telegramBot.gm.handlers.HandlerV1;
-import ru.telegramBot.gm.handlers.textHandlers.TextHandler;
+import ru.telegramBot.gm.dataContainer.components.TextComponent;
+import ru.telegramBot.gm.handlers.Handler;
 import ru.telegramBot.gm.readers.RequestData;
-import ru.telegramBot.gm.readers.RequestDataV1;
 import ru.telegramBot.gm.writers.ResponseData;
-import ru.telegramBot.gm.writers.ResponseDataV1;
 
 /**
  * Обработчик всех неизвестных команд
  */
-public class UnknownOrNonCommandHandler implements HandlerV1 {
+public class UnknownCommandHandler implements Handler {
     /**
      * Метод, обрабатывабщий неизвестные/неправильные команды и текст без команд
      *
@@ -19,14 +17,19 @@ public class UnknownOrNonCommandHandler implements HandlerV1 {
      */
     @Override
     public ResponseData handle(RequestData data) {
-        if (!correctVersion(data))
+        TextComponent textComponent = data.getComponent("text");
+        if (textComponent == null)
             return null;
 
-        RequestDataV1 requestData = (RequestDataV1)data;
-        CommandFinder commandFinder = new CommandFinder(requestData.getText());
+        CommandFinder commandFinder = new CommandFinder(textComponent.get());
         if (commandFinder.getCommand() == null)
-            return new TextHandler().handle(data);
-        return new ResponseDataV1("Я не знаю, как реагировать на такую команду");
+            return null;
+
+        ResponseData responseData = new ResponseData();
+        responseData.setComponent("text", new TextComponent(){{
+            set("Я не знаю, как реагировать на такую команду (\nПопробуй ещё раз");
+        }});
+        return responseData;
 
     }
 }

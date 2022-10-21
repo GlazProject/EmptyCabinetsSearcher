@@ -13,6 +13,4 @@ public interface Handler {
      * @return Обёртка над обработанными данными
      */
     ResponseData handle(RequestData data);
-
-    default boolean correctVersion(RequestData data){ return true; }
 }

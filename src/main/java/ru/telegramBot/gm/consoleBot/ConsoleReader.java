@@ -1,7 +1,8 @@
 package ru.telegramBot.gm.consoleBot;
 
+import ru.telegramBot.gm.dataContainer.components.TextComponent;
 import ru.telegramBot.gm.readers.Reader;
-import ru.telegramBot.gm.readers.RequestDataV1;
+import ru.telegramBot.gm.readers.RequestData;
 
 import java.util.Scanner;
 
@@ -15,9 +16,13 @@ public class ConsoleReader implements Reader {
      * @return Контейнер с полученной из консоли строкой
      */
     @Override
-    public RequestDataV1 read() {
+    public RequestData read() {
         Scanner scanner = new Scanner(System.in);
         String text = scanner.nextLine();
-        return new RequestDataV1(text);
+        RequestData requestData = new RequestData();
+        requestData.setComponent("text", new TextComponent(){{
+            set(text);
+        }});
+        return requestData;
     }
 }

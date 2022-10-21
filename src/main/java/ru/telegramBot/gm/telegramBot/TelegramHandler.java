@@ -1,9 +1,11 @@
 package ru.telegramBot.gm.telegramBot;
 
 import org.telegram.telegrambots.meta.api.objects.Update;
-import ru.telegramBot.gm.handlers.CommandsHandler;
+import ru.telegramBot.gm.handlers.HandlerFacade;
 import ru.telegramBot.gm.readers.RequestData;
 import ru.telegramBot.gm.writers.ResponseData;
+
+import java.security.KeyException;
 
 /**
  * Обработчик данных, полученных из телеграм.
@@ -25,9 +27,14 @@ public class TelegramHandler {
     public TelegramResponseData handle(RequestData data, Update update) {
         if (data == null)
             return null;
-        CommandsHandler handler = new CommandsHandler();
+        HandlerFacade handler = new HandlerFacade();
         ResponseData responseData = handler.handle(data);
-        return new TelegramResponseData(responseData, update.getMessage());
+        try {
+            return new TelegramResponseData(responseData, update.getMessage());
+        } catch (KeyException e){
+            return null;
+        }
+
     }
 
 }

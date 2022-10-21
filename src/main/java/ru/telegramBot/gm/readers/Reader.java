@@ -9,5 +9,5 @@ public interface Reader {
      * Метод, используемый для чтения данных из какого-либо источника
      * @return Упакованный контейнер с прочтёнными данными
      */
-    RequestDataV1 read();
+    RequestData read();
 }

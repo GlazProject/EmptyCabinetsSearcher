@@ -1,16 +1,15 @@
 package ru.telegramBot.gm.handlers.textHandlers;
 
-import ru.telegramBot.gm.handlers.HandlerV1;
+import ru.telegramBot.gm.dataContainer.components.TextComponent;
+import ru.telegramBot.gm.handlers.Handler;
 import ru.telegramBot.gm.readers.RequestData;
-import ru.telegramBot.gm.readers.RequestDataV1;
 import ru.telegramBot.gm.writers.ResponseData;
-import ru.telegramBot.gm.writers.ResponseDataV1;
 
 /**
  * Простой обработчик сообщений, возвращающий исходные
  * данные без изменения
  */
-public class SimpleEchoHandler implements HandlerV1 {
+public class SimpleEchoHandler implements Handler {
 
     /**
      * Метод, возвращающий исходную строку
@@ -20,9 +19,11 @@ public class SimpleEchoHandler implements HandlerV1 {
      */
     @Override
     public ResponseData handle(RequestData data) {
-        if (!correctVersion(data))
-            return null;
-        RequestDataV1 requestData = (RequestDataV1)data;
-        return new ResponseDataV1(requestData.getText());
+        TextComponent textComponent = data.getComponent("text");
+        if (textComponent == null)
+            return  null;
+        ResponseData responseData = new ResponseData();
+        responseData.setComponent("text", textComponent);
+        return responseData;
     }
 }

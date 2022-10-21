@@ -1,7 +1,7 @@
 package ru.telegramBot.gm.consoleBot;
 
+import ru.telegramBot.gm.dataContainer.components.TextComponent;
 import ru.telegramBot.gm.writers.ResponseData;
-import ru.telegramBot.gm.writers.ResponseDataV1;
 import ru.telegramBot.gm.writers.Writer;
 
 /**
@@ -15,9 +15,11 @@ public class ConsoleWriter implements Writer {
      */
     @Override
     public void write(ResponseData data) {
-        if (data instanceof ResponseDataV1)
-            System.out.println(((ResponseDataV1)data).getText());
-        else
-            throw new ClassCastException("Контейнер с данными не является ResponseDataV1 и не содержит метода getText()");
+        TextComponent textComponent = data.getComponent("text");
+        if (textComponent == null){
+            throw new IllegalArgumentException("Не найдено поле с текстом");
+        }
+        System.out.println(textComponent.get());
+
     }
 }
