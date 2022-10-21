@@ -23,8 +23,8 @@ import java.util.Properties;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-//        telegramBot();
-        consoleEchoBot();
+        telegramBot();
+//        consoleEchoBot();
     }
 
     /**
@@ -53,7 +53,7 @@ public class Main {
      */
     public static void telegramBot() throws IOException {
         Properties properties = new Properties();
-        properties.load(new FileInputStream("src/main/resources/config.propertiess"));
+        properties.load(new FileInputStream("src/main/resources/config.properties"));
 
         String botName = Objects.requireNonNull(properties.getProperty("bot.name"), "Не найдено bot.name в файле конфигурации");
         String botToken = Objects.requireNonNull(properties.getProperty("bot.token"), "Не найдено bot.token в файле конфигурации");
