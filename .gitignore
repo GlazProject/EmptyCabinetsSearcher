@@ -8,7 +8,8 @@
 *.ear
 *.nar
 hs_err_pid*
-*.properties
+config.properties
+*/test
 ##############################
 ## Maven
 ##############################

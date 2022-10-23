@@ -8,8 +8,6 @@ import ru.telegramBot.gm.readers.RequestData;
 import ru.telegramBot.gm.writers.ResponseData;
 import ru.telegramBot.gm.writers.Writer;
 
-import java.security.KeyException;
-
 /**
  * Класс, позволяющий создать подключение к TelegramApi
  */
@@ -44,22 +42,21 @@ public class TelegramBot extends TelegramLongPollingBot
     @Override
     public void onUpdateReceived(Update update) {
         RequestData requestData = reader.readDataFromUpdate(update);
-        TelegramResponseData telegramResponseData = handler.handle(requestData, update);
+        ResponseData telegramResponseData = handler.handle(requestData);
         write(telegramResponseData);
     }
 
+    /**
+     * Метод, позволяющий отправлять сообщения в телеграм
+     * @param data Контейнер с обработанной информацией, являющийся {@code TelegramResponseData}
+     */
     @Override
     public void write(ResponseData data) {
-        if (data instanceof TelegramResponseData) {
-            try{
-                SendMessage message = writer.createMessage((TelegramResponseData)data);
-                execute(message);
-            } catch (KeyException e){
-                System.out.println("Возникли проблемы при формировании сообщения");
-            } catch (TelegramApiException e){
-                e.printStackTrace();
-            }
+        try{
+            SendMessage message = writer.createMessage(data);
+            execute(message);
+        } catch (TelegramApiException e){
+            e.printStackTrace();
         }
-        throw new ClassCastException("Контейнер не является TelegramResponseData");
     }
 }

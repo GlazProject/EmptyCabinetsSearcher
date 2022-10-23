@@ -1,40 +1,37 @@
 package ru.telegramBot.gm.telegramBot;
 
-import org.telegram.telegrambots.meta.api.objects.Update;
+import ru.telegramBot.gm.handlers.Handler;
 import ru.telegramBot.gm.handlers.HandlerFacade;
 import ru.telegramBot.gm.readers.RequestData;
 import ru.telegramBot.gm.writers.ResponseData;
 
-import java.security.KeyException;
+import javax.annotation.Nullable;
 
 /**
- * Обработчик данных, полученных из телеграм.
+ * Обработчик, который обрабатывает все данные, полученные через Telegram
  */
-
-/*
- * Через этот обработчик происходит вся обработка данных, полученных в Update.
- * Из сообщения выделяется текст и передаётся в обработчика команд
- */
-public class TelegramHandler {
+public class TelegramHandler implements Handler {
 
     /**
      * Данный метод реализует проверку и обработку сообщения, полученного от Telegram.
      *
      * @param data Контейнер с данными, сформированный из сообщения
-     * @param update Обновление, которое вызвало обработку
-     * @return TRD, который содержит сообщение, на которое отвечали, и все данные, сформированные обработчиком.
+     * @return Контейнер, который содержит обработанные данные,
+     * либо null, если не удалось обработать данные или полученные данные не принадлежали telegram
      */
-    public TelegramResponseData handle(RequestData data, Update update) {
-        if (data == null)
+    @Nullable
+    public ResponseData handle(RequestData data) {
+        if (data == null || data.getComponent("telegramMessage") == null)
             return null;
+
         HandlerFacade handler = new HandlerFacade();
         ResponseData responseData = handler.handle(data);
-        try {
-            return new TelegramResponseData(responseData, update.getMessage());
-        } catch (KeyException e){
-            return null;
-        }
 
+        if (responseData == null)
+            return null;
+        responseData.setComponent("telegramMessage", data.getComponent("telegramMessage"));
+
+        return responseData;
     }
 
 }

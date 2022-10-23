@@ -1,25 +1,34 @@
 package ru.telegramBot.gm.handlers.commandHandlers;
 
 import ru.telegramBot.gm.handlers.Handler;
-import ru.telegramBot.gm.readers.RequestData;
-import ru.telegramBot.gm.writers.ResponseData;
+import ru.telegramBot.gm.handlers.HandlersFacade;
 
-import java.util.List;
+import java.util.Collections;
 
-public class CommandFacade implements Handler {
+/**
+ * Фасад, который позволяет обрабатывать тексты, содержащие команды
+ */
+public class CommandFacade extends HandlersFacade {
 
-    private final List<Handler> handlers = List.of(
-            new StartCommandHandler(),
-            new UnknownCommandHandler()
-    );
+    /**
+     * Задание списка всех обработчиков, которым даётся возможность обработать данные
+     */
+    public CommandFacade(){
+        super();
+        handlers.add(new StartCommandHandler());
+        handlers.add(new UnknownCommandHandler());
+    }
 
-    @Override
-    public ResponseData handle(RequestData data) {
-        for (Handler handler : handlers){
-            ResponseData responseData = handler.handle(data);
-            if (responseData != null)
-                return responseData;
-        }
-        return null;
+    /**
+     * Задание списка всех обработчиков, которым даётся возможность обработать данные
+     *
+     * @param optionalHandlers Массив экземпляров обработчиков,
+     *                         которым нужно дополнительно давать возможность обработать данные
+     */
+    public CommandFacade(Handler[] optionalHandlers){
+        super();
+        Collections.addAll(handlers, optionalHandlers);
+        handlers.add(new StartCommandHandler());
+        handlers.add(new UnknownCommandHandler());
     }
 }

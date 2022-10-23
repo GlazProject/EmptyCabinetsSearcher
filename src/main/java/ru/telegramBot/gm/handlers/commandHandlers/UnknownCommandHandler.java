@@ -1,22 +1,32 @@
 package ru.telegramBot.gm.handlers.commandHandlers;
 
+import org.jetbrains.annotations.NotNull;
+import ru.telegramBot.gm.dataContainer.components.DataWriter;
 import ru.telegramBot.gm.dataContainer.components.TextComponent;
 import ru.telegramBot.gm.handlers.Handler;
 import ru.telegramBot.gm.readers.RequestData;
 import ru.telegramBot.gm.writers.ResponseData;
 
+import javax.annotation.Nullable;
+import java.util.ResourceBundle;
+
 /**
  * Обработчик всех неизвестных команд
  */
 public class UnknownCommandHandler implements Handler {
+    public static final String UNKNOWN_COMMAND = "UnknownCommandHandler.unknownCommand";
+    private final ResourceBundle resourceBundle = ResourceBundle.getBundle("phrases");
+
+
     /**
-     * Метод, обрабатывабщий неизвестные/неправильные команды и текст без команд
+     * Метод, обрабатывающий неизвестные/неправильные команды
      *
-     * @param data Данные полученные при чтении
-     * @return RD с сообщением о неправильной командой в поле text
+     * @param data Контейнер с данными, содержащий строку в поле "text"
+     * @return Контейнер с сообщением о неправильной командой в поле "text", либо null, если не содержит команду
      */
+    @Nullable
     @Override
-    public ResponseData handle(RequestData data) {
+    public ResponseData handle(@NotNull RequestData data) {
         TextComponent textComponent = data.getComponent("text");
         if (textComponent == null)
             return null;
@@ -26,9 +36,7 @@ public class UnknownCommandHandler implements Handler {
             return null;
 
         ResponseData responseData = new ResponseData();
-        responseData.setComponent("text", new TextComponent(){{
-            set("Я не знаю, как реагировать на такую команду (\nПопробуй ещё раз");
-        }});
+        DataWriter.write(resourceBundle.getString(UNKNOWN_COMMAND), responseData);
         return responseData;
 
     }

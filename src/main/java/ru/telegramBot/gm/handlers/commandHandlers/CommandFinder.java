@@ -1,5 +1,12 @@
 package ru.telegramBot.gm.handlers.commandHandlers;
 
+import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nullable;
+
+/**
+ * Класс, который позволяет осуществять поиск команды формата /command в тексте
+ */
 public class CommandFinder {
     private String command;
     private String text;
@@ -8,15 +15,29 @@ public class CommandFinder {
         findCommand(text);
     }
 
+    /**
+     * Метод, который позволяет получить найденную команду
+     * @return Команда без /, либо null, если команда не была найдена
+     */
+    @Nullable
     public String getCommand(){
         return command;
     }
 
+    /**
+     * Метод, который позволяет получить найденный текст
+     * @return Текст из входных данных без команды, либо null, если текст не найден
+     */
+    @Nullable
     public String getText(){
         return text;
     }
 
-    private void findCommand(String inputText){
+    /**
+     * Метод, который позволяет разделить полученный текст на команду и оставшийся текст
+     * @param inputText Текст, который нужно разделить
+     */
+    private void findCommand(@NotNull String inputText){
         if (inputText.charAt(0) != '/'){
             text = inputText;
             return;

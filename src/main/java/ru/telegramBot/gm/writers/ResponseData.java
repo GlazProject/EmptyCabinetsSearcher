@@ -5,14 +5,13 @@ import ru.telegramBot.gm.dataContainer.components.ComponentsContainer;
 
 
 /**
- * Обёртка для данных, которая имеет только поле с текстом
+ * Контейнер для обработанных данных, который содержит компоненты с данными. Обращение к компонентам по имени
  */
 public class ResponseData extends ComponentsContainer {
-    public ResponseData(ResponseData oldData){
-        super(oldData);
-    }
-
     public ResponseData() {
         super();
+    }
+    public ResponseData(ResponseData oldData){
+        super(oldData);
     }
 }
