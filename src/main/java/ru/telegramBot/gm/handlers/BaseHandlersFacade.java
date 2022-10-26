@@ -5,18 +5,18 @@ import ru.telegramBot.gm.readers.RequestData;
 import ru.telegramBot.gm.writers.ResponseData;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Фасад, который позволяет обрабатывать любые данные
  */
-public abstract class HandlersFacade implements Handler{
+public abstract class BaseHandlersFacade implements Handler{
 
     /**
      * Список всех обработчиков (фасадов), которым даётся возможность обработать данные
      */
-    protected final List<Handler> handlers = new ArrayList<>();
+    protected final List<Handler> handlers = new LinkedList<>();
 
     /**
      * Метод, который выполняет обработку полученных данных

@@ -1,5 +1,6 @@
 package ru.telegramBot.gm.telegramBot;
 
+import ru.telegramBot.gm.dataContainer.components.TelegramChatIDComponent;
 import ru.telegramBot.gm.handlers.Handler;
 import ru.telegramBot.gm.handlers.HandlerFacade;
 import ru.telegramBot.gm.readers.RequestData;
@@ -21,7 +22,7 @@ public class TelegramHandler implements Handler {
      */
     @Nullable
     public ResponseData handle(RequestData data) {
-        if (data == null || data.getComponent("telegramMessage") == null)
+        if (data == null || data.getComponent(TelegramChatIDComponent.class) == null)
             return null;
 
         HandlerFacade handler = new HandlerFacade();
@@ -29,7 +30,7 @@ public class TelegramHandler implements Handler {
 
         if (responseData == null)
             return null;
-        responseData.setComponent("telegramMessage", data.getComponent("telegramMessage"));
+        responseData.setComponent(data.getComponent(TelegramChatIDComponent.class));
 
         return responseData;
     }

@@ -23,13 +23,13 @@ import java.util.Properties;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-//        telegramBot();
-        consoleEchoBot();
+        telegramBot();
+//        consoleEchoBot();
     }
 
     /**
      * Простой эхо ответчик для консоли.
-     * Останавливает считываниие и ответ при вводе пустой строки
+     * Останавливает считывание и ответ при вводе пустой строки
      */
     public static void consoleEchoBot() {
         Reader reader = new ConsoleReader();
@@ -38,10 +38,10 @@ public class Main {
 
         while (true) {
             RequestData requestData = reader.read();
-            TextComponent textComponent = requestData.getComponent("text");
+            TextComponent textComponent = requestData.getComponent(TextComponent.class);
             if (textComponent == null)
                 break;
-            if (Objects.equals(textComponent.get(), ""))
+            if (Objects.equals(textComponent.getText(), ""))
                 break;
             ResponseData responseData = handler.handle(requestData);
             writer.write(responseData);

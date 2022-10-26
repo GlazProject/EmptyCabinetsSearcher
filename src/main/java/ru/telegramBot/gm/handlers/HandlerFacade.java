@@ -8,7 +8,7 @@ import java.util.Collections;
 /**
  * Фасад, который позволяет обрабатывать любые данные
  */
-public class HandlerFacade extends HandlersFacade {
+public class HandlerFacade extends BaseHandlersFacade {
 
     /**
      * Задание списка всех обработчиков (фасадов), которым даётся возможность обработать данные

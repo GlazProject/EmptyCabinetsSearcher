@@ -16,11 +16,11 @@ public class ConsoleWriter implements Writer {
      */
     @Override
     public void write(ResponseData data) {
-        TextComponent textComponent = data.getComponent("text");
+        TextComponent textComponent = data.getComponent(TextComponent.class);
         if (textComponent == null){
             throw new IllegalArgumentException("Не найдено поле с текстом");
         }
-        System.out.println(textComponent.get());
+        System.out.println(textComponent.getText());
 
     }
 }

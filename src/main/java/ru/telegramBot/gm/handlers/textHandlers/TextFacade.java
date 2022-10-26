@@ -1,14 +1,14 @@
 package ru.telegramBot.gm.handlers.textHandlers;
 
 import ru.telegramBot.gm.handlers.Handler;
-import ru.telegramBot.gm.handlers.HandlersFacade;
+import ru.telegramBot.gm.handlers.BaseHandlersFacade;
 
 import java.util.Collections;
 
 /**
  * Фасад, который позволяет обрабатывать тексты, не содержащие команды
  */
-public class TextFacade extends HandlersFacade {
+public class TextFacade extends BaseHandlersFacade {
 
     /**
      * Задание списка всех обработчиков, которым даётся возможность обработать данные

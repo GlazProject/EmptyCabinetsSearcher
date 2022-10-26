@@ -27,11 +27,11 @@ public class StartCommandHandler implements Handler {
     @Nullable
     @Override
     public ResponseData handle(@NotNull RequestData data) {
-        TextComponent textComponent = data.getComponent("text");
+        TextComponent textComponent = data.getComponent(TextComponent.class);
         if (textComponent == null)
             return null;
 
-        CommandFinder commandFinder = new CommandFinder(textComponent.get());
+        CommandFinder commandFinder = new CommandFinder(textComponent.getText());
         if (!Objects.equals(commandFinder.getCommand(), "start"))
             return null;
 

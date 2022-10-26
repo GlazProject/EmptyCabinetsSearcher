@@ -1,15 +1,43 @@
 package ru.telegramBot.gm.telegramBot;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.Update;
+import ru.telegramBot.gm.dataContainer.components.DataWriter;
+import ru.telegramBot.gm.dataContainer.components.TelegramChatIDComponent;
+import ru.telegramBot.gm.dataContainer.components.TextComponent;
+import ru.telegramBot.gm.readers.RequestData;
 import ru.telegramBot.gm.writers.ResponseData;
 
-import javax.annotation.Nullable;
-
 /**
- * Класс, предоставляющий методы для создания сообщений ответа Telegram
+ * Класс, который преобразует Telegram Update в контейнер с данными
  */
-public class TelegramWriter {
+public class TelegramDataConverter {
+    /**
+     * Метод, который проверяет наличие сообщения в обновлении и преобразует его в {@code RequestData}
+     *
+     * @param update Обновление, которое вызвало обработку
+     * @return Контейнер с данными, либо null, если в обновлении нет сообщения
+     */
+    @Nullable
+    public RequestData readDataFromUpdate(@NotNull Update update) {
+        if (!update.hasMessage())
+            return null;
+
+        RequestData requestData = new RequestData();
+        Message message = update.getMessage();
+
+        TelegramChatIDComponent telegramChatIDComponent = new TelegramChatIDComponent(message.getChatId());
+        requestData.setComponent(telegramChatIDComponent);
+
+        if (message.hasText())
+            DataWriter.write(message.getText(), requestData);
+
+        return requestData;
+    }
+
     /**
      * Метод, который создаёт сообщение по полученному контейнеру с сообщением Telegram
      *
@@ -22,10 +50,10 @@ public class TelegramWriter {
         if (responseData == null)
             return null;
 
-        Message originalMessage = responseData.getFromComponent("telegramMessage");
-        if (originalMessage == null)
+        TelegramChatIDComponent chatIdComponent = responseData.getComponent(TelegramChatIDComponent.class);
+        if (chatIdComponent == null)
             return null;
-        return createMessageByChatId(responseData, originalMessage.getChatId());
+        return createMessageByChatId(responseData, chatIdComponent.getID());
     }
 
     /**
@@ -44,10 +72,10 @@ public class TelegramWriter {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatID);
 
-        String text = responseData.getFromComponent("text");
-        if (text == null)
+        TextComponent textComponent = responseData.getComponent(TextComponent.class);
+        if (textComponent == null)
             return null;
-        sendMessage.setText(text);
+        sendMessage.setText(textComponent.getText());
 
         // Заменяет пустой текст на прозрачный символ, чтобы не было ошибок пустого сообщения
         if (sendMessage.getText().equals(""))

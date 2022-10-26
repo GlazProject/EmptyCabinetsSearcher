@@ -23,11 +23,11 @@ public class SimpleEchoHandler implements Handler {
     @Nullable
     @Override
     public ResponseData handle(@NotNull RequestData data) {
-        TextComponent textComponent = data.getComponent("text");
+        TextComponent textComponent = data.getComponent(TextComponent.class);
         if (textComponent == null)
             return  null;
         ResponseData responseData = new ResponseData();
-        responseData.setComponent("text", textComponent);
+        responseData.setComponent(textComponent);
         return responseData;
     }
 }

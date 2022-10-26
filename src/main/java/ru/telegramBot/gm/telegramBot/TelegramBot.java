@@ -17,16 +17,14 @@ public class TelegramBot extends TelegramLongPollingBot
     private final String botName;
     private final String botToken;
     private final TelegramHandler handler;
-    private final TelegramWriter writer;
-    private final TelegramReader reader;
+    private final TelegramDataConverter converter;
 
     public TelegramBot(String bot_name, String bot_token) {
         super();
         botName = bot_name;
         botToken = bot_token;
         handler = new TelegramHandler();
-        writer = new TelegramWriter();
-        reader = new TelegramReader();
+        converter = new TelegramDataConverter();
     }
 
     @Override
@@ -41,19 +39,19 @@ public class TelegramBot extends TelegramLongPollingBot
 
     @Override
     public void onUpdateReceived(Update update) {
-        RequestData requestData = reader.readDataFromUpdate(update);
+        RequestData requestData = converter.readDataFromUpdate(update);
         ResponseData telegramResponseData = handler.handle(requestData);
         write(telegramResponseData);
     }
 
     /**
      * Метод, позволяющий отправлять сообщения в телеграм
-     * @param data Контейнер с обработанной информацией, являющийся {@code TelegramResponseData}
+     * @param data Контейнер с обработанной информацией, являющийся {@code TelegramChatIDData}
      */
     @Override
     public void write(ResponseData data) {
         try{
-            SendMessage message = writer.createMessage(data);
+            SendMessage message = converter.createMessage(data);
             execute(message);
         } catch (TelegramApiException e){
             e.printStackTrace();
