@@ -10,11 +10,11 @@ import java.util.*;
  * Контейнер данных, который позволяет хранить ассоциативные связи между названием компонента и самим экземпляром компонента
  */
 public class ComponentsContainer {
-    protected final List<Component> dataComponents = new LinkedList<>();
+    protected final Set<Component> dataComponents = new HashSet<>();
 
     public ComponentsContainer(){}
 
-    public ComponentsContainer (@NotNull ComponentsContainer oldData){
+    public ComponentsContainer(@NotNull ComponentsContainer oldData) {
         dataComponents.addAll(oldData.dataComponents);
     }
 

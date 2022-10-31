@@ -12,7 +12,7 @@ public class ConsoleWriter implements Writer {
     /**
      * Основной метод вывода данных в консоль
      * @param data Контейнер с входными данными
-     * @exception IllegalArgumentException, если в контекнере не существует компонента с именем "text"
+     * @exception IllegalArgumentException, если в контейнере не существует компонента с именем "text"
      */
     @Override
     public void write(ResponseData data) {

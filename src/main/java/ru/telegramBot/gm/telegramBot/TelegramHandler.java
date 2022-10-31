@@ -1,6 +1,5 @@
 package ru.telegramBot.gm.telegramBot;
 
-import ru.telegramBot.gm.dataContainer.components.TelegramChatIDComponent;
 import ru.telegramBot.gm.handlers.Handler;
 import ru.telegramBot.gm.handlers.HandlerFacade;
 import ru.telegramBot.gm.readers.RequestData;
@@ -12,6 +11,7 @@ import javax.annotation.Nullable;
  * Обработчик, который обрабатывает все данные, полученные через Telegram
  */
 public class TelegramHandler implements Handler {
+    private final HandlerFacade handler = new HandlerFacade();
 
     /**
      * Данный метод реализует проверку и обработку сообщения, полученного от Telegram.
@@ -25,7 +25,6 @@ public class TelegramHandler implements Handler {
         if (data == null || data.getComponent(TelegramChatIDComponent.class) == null)
             return null;
 
-        HandlerFacade handler = new HandlerFacade();
         ResponseData responseData = handler.handle(data);
 
         if (responseData == null)

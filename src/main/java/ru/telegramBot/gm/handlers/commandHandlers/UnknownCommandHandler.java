@@ -1,7 +1,6 @@
 package ru.telegramBot.gm.handlers.commandHandlers;
 
 import org.jetbrains.annotations.NotNull;
-import ru.telegramBot.gm.dataContainer.components.DataWriter;
 import ru.telegramBot.gm.dataContainer.components.TextComponent;
 import ru.telegramBot.gm.handlers.Handler;
 import ru.telegramBot.gm.readers.RequestData;
@@ -36,7 +35,7 @@ public class UnknownCommandHandler implements Handler {
             return null;
 
         ResponseData responseData = new ResponseData();
-        DataWriter.write(resourceBundle.getString(UNKNOWN_COMMAND), responseData);
+        responseData.setComponent(new TextComponent(resourceBundle.getString(UNKNOWN_COMMAND)));
         return responseData;
 
     }

@@ -67,7 +67,7 @@ public class Main {
      * @param botName Имя бота
      * @param botToken Токен, для подключения к боту
      */
-    public static void startTelegramBot(String botName, String botToken){
+    private static void startTelegramBot(String botName, String botToken){
         try {
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
             botsApi.registerBot(new TelegramBot(botName, botToken));

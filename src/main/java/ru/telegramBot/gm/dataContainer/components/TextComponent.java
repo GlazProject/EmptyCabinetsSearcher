@@ -1,10 +1,16 @@
 package ru.telegramBot.gm.dataContainer.components;
 
+import java.util.Objects;
+
 /**
  * Текстовый компонент контейнера данных, который хранит данные типа String
  */
 public class TextComponent implements Component {
-    private String text;
+    private final String text;
+
+    public TextComponent(String inputText) {
+        text = inputText;
+    }
 
     /**
      * Метод, который позволяет получить текст из компонента
@@ -14,11 +20,18 @@ public class TextComponent implements Component {
         return text;
     }
 
-    /**
-     * Метод, который позволяет добавить (обновить) текст в компонент
-     * @param value Значение типа `String`, которое необходимо записать в компонент
-     */
-    public void setText(String value){
-        text = value;
+    @Override
+    public int hashCode() {
+        return text.hashCode();
+    }
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        return Objects.equals(((TextComponent) obj).text, text);
     }
 }

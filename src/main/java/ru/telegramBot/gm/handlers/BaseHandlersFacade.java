@@ -5,7 +5,8 @@ import ru.telegramBot.gm.readers.RequestData;
 import ru.telegramBot.gm.writers.ResponseData;
 
 import javax.annotation.Nullable;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -16,7 +17,11 @@ public abstract class BaseHandlersFacade implements Handler{
     /**
      * Список всех обработчиков (фасадов), которым даётся возможность обработать данные
      */
-    protected final List<Handler> handlers = new LinkedList<>();
+    private final List<Handler> handlers = new ArrayList<>();
+
+    public BaseHandlersFacade(Handler... optionalHandlers){
+        Collections.addAll(handlers, optionalHandlers);
+    }
 
     /**
      * Метод, который выполняет обработку полученных данных

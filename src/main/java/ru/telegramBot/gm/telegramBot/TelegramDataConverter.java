@@ -5,8 +5,6 @@ import org.jetbrains.annotations.Nullable;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import ru.telegramBot.gm.dataContainer.components.DataWriter;
-import ru.telegramBot.gm.dataContainer.components.TelegramChatIDComponent;
 import ru.telegramBot.gm.dataContainer.components.TextComponent;
 import ru.telegramBot.gm.readers.RequestData;
 import ru.telegramBot.gm.writers.ResponseData;
@@ -33,7 +31,7 @@ public class TelegramDataConverter {
         requestData.setComponent(telegramChatIDComponent);
 
         if (message.hasText())
-            DataWriter.write(message.getText(), requestData);
+            requestData.setComponent(new TextComponent(message.getText()));
 
         return requestData;
     }

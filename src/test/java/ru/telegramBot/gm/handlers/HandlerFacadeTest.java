@@ -17,8 +17,7 @@ class HandlerFacadeTest {
 
     private RequestData createRequestDataWithText (String text){
         RequestData requestData = new RequestData();
-        TextComponent textComponent = new TextComponent();
-        textComponent.setText(text);
+        TextComponent textComponent = new TextComponent(text);
         requestData.setComponent(textComponent);
         return requestData;
     }
