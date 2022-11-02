@@ -49,11 +49,11 @@ public class TelegramBot extends TelegramLongPollingBot
      * @param data Контейнер с обработанной информацией, являющийся {@code TelegramChatIDData}
      */
     @Override
-    public void write(ResponseData data) {
+    public void write(ResponseData data){
         try{
             SendMessage message = converter.createMessage(data);
             execute(message);
-        } catch (TelegramApiException e){
+        } catch (TelegramApiException | NoSuchFieldException e){
             e.printStackTrace();
         }
     }

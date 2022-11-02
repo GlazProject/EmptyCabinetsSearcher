@@ -5,7 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import ru.telegramBot.gm.dataContainer.components.TextComponent;
+import ru.telegramBot.gm.dataComponents.TextComponent;
 import ru.telegramBot.gm.readers.RequestData;
 import ru.telegramBot.gm.writers.ResponseData;
 
@@ -44,13 +44,13 @@ public class TelegramDataConverter {
      * либо null, если нет данных для создания сообщения или нет сообщения отправителя
      */
     @Nullable
-    public SendMessage createMessage(ResponseData responseData){
+    public SendMessage createMessage(ResponseData responseData) throws NoSuchFieldException {
         if (responseData == null)
             return null;
 
         TelegramChatIDComponent chatIdComponent = responseData.getComponent(TelegramChatIDComponent.class);
         if (chatIdComponent == null)
-            return null;
+            throw new NoSuchFieldException("Не найден TelegramChatIDComponent");
         return createMessageByChatId(responseData, chatIdComponent.getID());
     }
 

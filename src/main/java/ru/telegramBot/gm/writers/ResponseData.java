@@ -1,6 +1,6 @@
 package ru.telegramBot.gm.writers;
 
-import ru.telegramBot.gm.dataContainer.components.ComponentsContainer;
+import ru.telegramBot.gm.dataComponents.ComponentsContainer;
 
 
 

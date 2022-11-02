@@ -1,6 +1,6 @@
 package ru.telegramBot.gm.consoleBot;
 
-import ru.telegramBot.gm.dataContainer.components.TextComponent;
+import ru.telegramBot.gm.dataComponents.TextComponent;
 import ru.telegramBot.gm.writers.ResponseData;
 import ru.telegramBot.gm.writers.Writer;
 

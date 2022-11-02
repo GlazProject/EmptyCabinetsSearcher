@@ -1,7 +1,7 @@
 package ru.telegramBot.gm.handlers.textHandlers;
 
 import org.jetbrains.annotations.NotNull;
-import ru.telegramBot.gm.dataContainer.components.TextComponent;
+import ru.telegramBot.gm.dataComponents.TextComponent;
 import ru.telegramBot.gm.handlers.Handler;
 import ru.telegramBot.gm.readers.RequestData;
 import ru.telegramBot.gm.writers.ResponseData;

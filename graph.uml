@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/Никита/IdeaProjects/JavaTelegramBot/src/main/java</OriginalElement>
+  <nodes>
+    <node x="581.1019745664549" y="646.6302894019709">ru.telegramBot.gm.readers.RequestData</node>
+    <node x="-391.66817258805816" y="567.9421015814862">ru.telegramBot.gm.handlers.commandHandlers.UnknownCommandHandler</node>
+    <node x="-391.6681825959672" y="370.0050059867322">ru.telegramBot.gm.handlers.commandHandlers.CommandFinder</node>
+    <node x="-119.74701028049662" y="-153.11397550147882">ru.telegramBot.gm.handlers.Handler</node>
+    <node x="-391.6681825959672" y="130.130814797224">ru.telegramBot.gm.handlers.commandHandlers.CommandFacade</node>
+    <node x="882.9985285063501" y="560.1772464220284">ru.telegramBot.gm.writers.Writer</node>
+    <node x="882.9985285063501" y="646.6302894019709">ru.telegramBot.gm.writers.ResponseData</node>
+    <node x="1677.59110252656" y="537.1772464220284">ru.telegramBot.gm.consoleBot.ConsoleReader</node>
+    <node x="711.6566950175172" y="-469.1286071301136">ru.telegramBot.gm.Main</node>
+    <node x="-122.24701028049662" y="-34.491580352127414">ru.telegramBot.gm.handlers.BaseHandlersFacade</node>
+    <node x="1627.59110252656" y="94.56791039197816">ru.telegramBot.gm.telegramBot.TelegramBot</node>
+    <node x="1351.9367047322248" y="-34.417872661417135">ru.telegramBot.gm.telegramBot.TelegramChatIDComponent</node>
+    <node x="1627.59110252656" y="-34.417872661417135">ru.telegramBot.gm.telegramBot.TelegramHandler</node>
+    <node x="581.1019745664549" y="560.1772464220284">ru.telegramBot.gm.readers.Reader</node>
+    <node x="759.4392478350912" y="-2.962636283703091">ru.telegramBot.gm.dataComponents.TextComponent</node>
+    <node x="262.75149876101295" y="130.130814797224">ru.telegramBot.gm.handlers.HandlerFacade</node>
+    <node x="685.6566950175172" y="182.56791039197816">ru.telegramBot.gm.dataComponents.ComponentsContainer</node>
+    <node x="759.4392478350912" y="-120.49318295938434">ru.telegramBot.gm.dataComponents.Component</node>
+    <node x="1677.59110252656" y="630.1950581268628">ru.telegramBot.gm.consoleBot.ConsoleWriter</node>
+    <node x="-391.6681825959672" y="216.0679103919781">ru.telegramBot.gm.handlers.commandHandlers.StartCommandHandler</node>
+    <node x="-71.24701028049662" y="216.06791039197816">ru.telegramBot.gm.handlers.textHandlers.SimpleEchoHandler</node>
+    <node x="-71.24701028049662" y="130.130814797224">ru.telegramBot.gm.handlers.textHandlers.TextFacade</node>
+    <node x="1184.737620762759" y="199.04034465830551">ru.telegramBot.gm.telegramBot.TelegramDataConverter</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="ru.telegramBot.gm.handlers.commandHandlers.UnknownCommandHandler" target="ru.telegramBot.gm.handlers.Handler" relationship="REALIZATION">
+      <point x="-127.67363480806569" y="-1.0158148620575957E-4" />
+      <point x="-414.0" y="628.942" />
+      <point x="-414.0" y="-126.114" />
+      <point x="-121.49998971950338" y="-2.4498521185023492E-5" />
+    </edge>
+    <edge source="ru.telegramBot.gm.consoleBot.ConsoleWriter" target="ru.telegramBot.gm.writers.Writer" relationship="REALIZATION">
+      <point x="-99.0" y="0.0" />
+      <point x="1645.2204197449473" y="668.6950581268628" />
+      <point x="1645.2204197449473" y="572.1772464220284" />
+      <point x="107.0" y="-15.0" />
+    </edge>
+    <edge source="ru.telegramBot.gm.dataComponents.TextComponent" target="ru.telegramBot.gm.dataComponents.Component" relationship="REALIZATION">
+      <point x="3.0498248281674023E-4" y="-71.99953419975746" />
+      <point x="3.0498248281674023E-4" y="37.999514836679445" />
+    </edge>
+    <edge source="ru.telegramBot.gm.handlers.commandHandlers.StartCommandHandler" target="ru.telegramBot.gm.handlers.Handler" relationship="REALIZATION">
+      <point x="-123.9998174040328" y="8.960802188084926E-5" />
+      <point x="-414.0" y="277.068" />
+      <point x="-414.0" y="-126.114" />
+      <point x="-121.49998971950338" y="-2.4498521185023492E-5" />
+    </edge>
+    <edge source="ru.telegramBot.gm.telegramBot.TelegramBot" target="ru.telegramBot.gm.writers.Writer" relationship="REALIZATION">
+      <point x="0.0" y="116.0" />
+      <point x="1751.59110252656" y="402.0" />
+      <point x="988.9392478350912" y="402.0" />
+      <point x="-1.0592806712588754" y="-27.0" />
+    </edge>
+    <edge source="ru.telegramBot.gm.writers.ResponseData" target="ru.telegramBot.gm.dataComponents.ComponentsContainer" relationship="GENERALIZATION">
+      <point x="4.7149364991128095E-4" y="-38.00028940197092" />
+      <point x="989.999" y="631.0" />
+      <point x="841.048" y="631.0" />
+      <point x="2.8573695772138308E-5" y="72.00008960802182" />
+    </edge>
+    <edge source="ru.telegramBot.gm.handlers.HandlerFacade" target="ru.telegramBot.gm.handlers.BaseHandlersFacade" relationship="GENERALIZATION">
+      <point x="0.0" y="-27.0" />
+      <point x="335.75149876101295" y="15.508419647872586" />
+      <point x="124.0" y="0.0" />
+    </edge>
+    <edge source="ru.telegramBot.gm.handlers.BaseHandlersFacade" target="ru.telegramBot.gm.handlers.Handler" relationship="REALIZATION">
+      <point x="0.0" y="-50.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="ru.telegramBot.gm.consoleBot.ConsoleReader" target="ru.telegramBot.gm.readers.Reader" relationship="REALIZATION">
+      <point x="-99.0" y="-33.0" />
+      <point x="1751.59110252656" y="542.6772464220284" />
+      <point x="1751.59110252656" y="516.1590106289834" />
+      <point x="693.1566950175172" y="516.1590106289834" />
+      <point x="13.05472045106228" y="-27.0" />
+    </edge>
+    <edge source="ru.telegramBot.gm.handlers.commandHandlers.CommandFacade" target="ru.telegramBot.gm.handlers.BaseHandlersFacade" relationship="GENERALIZATION">
+      <point x="15.0" y="-27.0" />
+      <point x="-252.6681825959672" y="15.508419647872586" />
+      <point x="-124.0" y="0.0" />
+    </edge>
+    <edge source="ru.telegramBot.gm.telegramBot.TelegramHandler" target="ru.telegramBot.gm.handlers.Handler" relationship="REALIZATION">
+      <point x="-118.33664960035208" y="-54.344295299736046" />
+      <point x="1633.254452926208" y="-150.22351483667944" />
+      <point x="121.5" y="-24.109539335200623" />
+    </edge>
+    <edge source="ru.telegramBot.gm.telegramBot.TelegramChatIDComponent" target="ru.telegramBot.gm.dataComponents.Component" relationship="REALIZATION">
+      <point x="106.68068288439872" y="-71.34856962869088" />
+      <point x="1577.1173876166235" y="-94.72351483667944" />
+      <point x="877.939552817574" y="-94.72351483667944" />
+      <point x="3.0498248281674023E-4" y="37.999514836679445" />
+    </edge>
+    <edge source="ru.telegramBot.gm.handlers.textHandlers.SimpleEchoHandler" target="ru.telegramBot.gm.handlers.Handler" relationship="REALIZATION">
+      <point x="124.0" y="0.0" />
+      <point x="186.24993628438898" y="254.56791039197816" />
+      <point x="186.24993628438898" y="-125.22351483667944" />
+      <point x="121.5" y="0.8904606647993774" />
+    </edge>
+    <edge source="ru.telegramBot.gm.readers.RequestData" target="ru.telegramBot.gm.dataComponents.ComponentsContainer" relationship="GENERALIZATION">
+      <point x="2.4167103447325644E-4" y="-38.00028940197092" />
+      <point x="680.1022162374894" y="631.0" />
+      <point x="841.048" y="631.0" />
+      <point x="2.8573695772138308E-5" y="72.00008960802182" />
+    </edge>
+    <edge source="ru.telegramBot.gm.handlers.textHandlers.TextFacade" target="ru.telegramBot.gm.handlers.BaseHandlersFacade" relationship="GENERALIZATION">
+      <point x="0.0" y="-27.0" />
+      <point x="51.0" y="50.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.6143184660275116" showDependencies="false" x="317.7391009329938" y="295.50585241730266" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

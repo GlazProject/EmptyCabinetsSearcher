@@ -1,7 +1,7 @@
 package ru.telegramBot.gm.handlers;
 
 import org.junit.jupiter.api.Test;
-import ru.telegramBot.gm.dataContainer.components.TextComponent;
+import ru.telegramBot.gm.dataComponents.TextComponent;
 import ru.telegramBot.gm.handlers.commandHandlers.StartCommandHandler;
 import ru.telegramBot.gm.handlers.commandHandlers.UnknownCommandHandler;
 import ru.telegramBot.gm.readers.RequestData;

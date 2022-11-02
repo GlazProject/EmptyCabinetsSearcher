@@ -1,6 +1,6 @@
 package ru.telegramBot.gm.telegramBot;
 
-import ru.telegramBot.gm.dataContainer.components.Component;
+import ru.telegramBot.gm.dataComponents.Component;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package ru.telegramBot.gm.dataContainer.components;
+package ru.telegramBot.gm.dataComponents;
 
 /**
  * Класс компонента контейнера данных

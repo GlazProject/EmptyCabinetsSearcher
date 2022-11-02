@@ -4,7 +4,7 @@ package ru.telegramBot.gm;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
-import ru.telegramBot.gm.dataContainer.components.TextComponent;
+import ru.telegramBot.gm.dataComponents.TextComponent;
 import ru.telegramBot.gm.handlers.HandlerFacade;
 import ru.telegramBot.gm.handlers.Handler;
 import ru.telegramBot.gm.consoleBot.ConsoleReader;

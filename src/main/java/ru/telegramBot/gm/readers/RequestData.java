@@ -1,6 +1,6 @@
 package ru.telegramBot.gm.readers;
 
-import ru.telegramBot.gm.dataContainer.components.ComponentsContainer;
+import ru.telegramBot.gm.dataComponents.ComponentsContainer;
 
 /**
  * Контейнер для полученных данных, который содержит компоненты с данными. Обращение к компонентам по имени
