@@ -1,11 +1,13 @@
 package ru.telegramBot.gm.handlers;
 
 import org.junit.jupiter.api.Test;
-import ru.telegramBot.gm.dataComponents.TextComponent;
-import ru.telegramBot.gm.handlers.commandHandlers.StartCommandHandler;
-import ru.telegramBot.gm.handlers.commandHandlers.UnknownCommandHandler;
-import ru.telegramBot.gm.readers.RequestData;
-import ru.telegramBot.gm.writers.ResponseData;
+import ru.telegramBot.gm.app.dataComponents.TextComponent;
+import ru.telegramBot.gm.app.handlers.Handler;
+import ru.telegramBot.gm.app.handlers.HandlerFacade;
+import ru.telegramBot.gm.app.handlers.commandHandlers.StartCommandHandler;
+import ru.telegramBot.gm.app.handlers.commandHandlers.UnknownCommandHandler;
+import ru.telegramBot.gm.app.dataContainers.RequestData;
+import ru.telegramBot.gm.app.dataContainers.ResponseData;
 
 import javax.annotation.Nullable;
 import java.util.ResourceBundle;
