@@ -1,6 +1,7 @@
 package ru.telegramBot.gm.app.urfuData;
 
 public class Data {
+    // TODO понять, как вообще работает и дать правильное название
     private int num_of_lesson;
     public Data(String lesson){
         for (int i = 0; i < time_1.length; i++){
