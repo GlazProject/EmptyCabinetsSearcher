@@ -1,45 +1,50 @@
 package ru.telegramBot.gm.app.urfuData;
 
-import java.util.Arrays;
+import java.sql.Time;
+import java.util.HashSet;
+import java.util.Set;
 
-public class Cabinet {
+record LessonBounds(Time Start, Time End, int lessonNumber){}
+public class Cabinet
+{
     public final String Address;
     public final int Number;
 
-    private static final int LESSONS_COUNT = 10;
-    private final boolean[] isBusy = new boolean[LESSONS_COUNT];
+    private final Set<LessonBounds> lessonsBounds = new HashSet<>();
 
-    public Cabinet(String address, int number, int... busyLessons){
+    public Cabinet(String address, int number){
         Number = number;
         Address = address;
-        Arrays.fill(isBusy, false);
-        for (int lesson: busyLessons) {
-            occupy(lesson);
+    }
+
+    public boolean isBusy(Time time){
+        for(LessonBounds lessonBounds : lessonsBounds){
+            if (lessonBounds.Start().before(time)
+                && lessonBounds.End().after(time))
+                return true;
         }
+        return false;
     }
 
-    public boolean isBusy(int lessonNumber){
-        if (lessonNumber > isBusy.length || lessonNumber <= 0)
-            throw new IndexOutOfBoundsException();
-        return isBusy[lessonNumber-1];
-    }
-
-    public void occupy(int lessonNumber){
-        setIsBusyStatus(true, lessonNumber);
-    }
-
-    public void release(int lessonNumber){
-        setIsBusyStatus(false, lessonNumber);
-    }
-
-    private void setIsBusyStatus(boolean value, int number){
-        if (number > isBusy.length || number <= 0)
-            throw new IndexOutOfBoundsException();
-        isBusy[number-1] = value;
+    public void occupy(Time start, Time end, int lessonNumber){
+        lessonsBounds.add(new LessonBounds(start, end, lessonNumber));
     }
 
     @Override
     public String toString(){
         return String.format("%s, cabinet №%s", Address, Number);
+    }
+
+    @Override
+    public int hashCode(){
+        return (Address.hashCode() * 3 + Number) % Integer.MAX_VALUE;
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if (! (obj instanceof Cabinet other))
+            return false;
+        return other.Number == this.Number &&
+                other.Address.equals(this.Address);
     }
 }
