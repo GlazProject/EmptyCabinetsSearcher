@@ -1,9 +1,9 @@
 package ru.telegramBot.gm.clients.telegramBot;
 
 /**
- * Ошибка, которая означает, что не найден компонент, содержащий ID чата для Telegram
+ * РћС€РёР±РєР°, РєРѕС‚РѕСЂР°СЏ РѕР·РЅР°С‡Р°РµС‚, С‡С‚Рѕ РЅРµ РЅР°Р№РґРµРЅ РєРѕРјРїРѕРЅРµРЅС‚, СЃРѕРґРµСЂР¶Р°С‰РёР№ ID С‡Р°С‚Р° РґР»СЏ Telegram
  */
-public class NoSuchTelegramIdComponent extends Error {
+public class NoSuchTelegramIdComponent extends Exception {
     /**
      * Constructor.
      */
