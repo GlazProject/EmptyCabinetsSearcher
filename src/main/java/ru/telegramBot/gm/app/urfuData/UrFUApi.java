@@ -15,24 +15,19 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UrFUApi {
-    //TODO переехать на парсинг html страницы (html текста), которые будут получаться с сайта
-    // https://urfu.ru/api/schedule/groups/lessons/<group_id>
-    // Лучше всего использовать для этого BeautifulSoup
-    // Если сможешь написать парсинг такой страницы, чтобы получить аналог метода getSchedule(string htmlPage),
-    // то это будет потрясающе. К сожалению через Ical мы не можем получить достаточно информации :(
-
     private static final String AllGroupsUrl = "https://urfu.ru/api/schedule/groups/";
-
     private static final String OneGroupSchedule = "https://urfu.ru/api/schedule/groups/lessons/";
 
-    public static final String getOneGroupSchedule(){return OneGroupSchedule;}
+    public static String getOneGroupSchedule(){return OneGroupSchedule;}
 
-    public static final String getAllGroupsUrl(){return AllGroupsUrl;}
+    public static String getAllGroupsUrl(){return AllGroupsUrl;}
 
     public static List<Group> convertStringToGroups(String groups) throws ParseException {
        JSONParser parser = new JSONParser();
@@ -50,27 +45,32 @@ public class UrFUApi {
     private static @NotNull Group parseGroupInfo(@NotNull JSONObject groupInfo) {
         long id = (long) groupInfo.get("id");
         long instituteId = (long) groupInfo.get("institute_id");
-        return new Group((int)id, (int)instituteId);
+        return new Group(id, instituteId);
     }
 
-    public static List<Cabinet> CreateAllCabinets(List<Group> groups) throws IOException {
-        List<Cabinet> AllCabinets = new ArrayList<>();
+    public static List<Cabinet> createAllCabinets(List<Group> groups) throws IOException {
+        List<Cabinet> allCabinets = new LinkedList<>();
         for (Group group : groups) {
-
-            //System.out.println("group.id() - " + group.id());
-
-            String GroupSchedule = OneGroupSchedule + group.id();
-            Document oneDayClasses = AreThereClasses(GroupSchedule);
+            String groupSchedule = OneGroupSchedule + group.id();
+            Document oneDayClasses = areThereClasses(groupSchedule);
             if (oneDayClasses != null){
-                CreateOneGroupCabinets(oneDayClasses, AllCabinets);
-
+                createOneGroupCabinets(oneDayClasses, allCabinets);
             }
         }
-        return AllCabinets;
+        return allCabinets;
     }
 
-    private static Document AreThereClasses(String groupShedule) throws IOException {
-        Document doc = Jsoup.connect(groupShedule).get();
+    private static Document areThereClasses(String groupSchedule) {
+        HttpRequests requests = new HttpRequests();
+        String groupScheduleStr;
+
+        try{
+            groupScheduleStr = requests.request(groupSchedule);
+        } catch (Exception e){
+            return null;
+        }
+
+        Document doc = Jsoup.parse(groupScheduleStr);
         String StringDocument = doc.toString();
         Pattern newDay = Pattern.compile(">\\d{2}\\s\\W+<");
         Matcher matcher = newDay.matcher(StringDocument);
@@ -83,11 +83,9 @@ public class UrFUApi {
                 break;
             }
             oneDay = StringDocument.substring(0, matcher.find() ? matcher.start() : -1);
-            //System.out.println(oneDay);
         }
-        //System.out.println(oneDay);
+
         if (oneDay != null) {
-            //System.out.println(oneDay);
             Document newDoc = Jsoup.parse(oneDay);
             Elements classes = newDoc.select("dl[class=shedule-weekday-item]");
             if (classes.size() != 0){
@@ -97,10 +95,7 @@ public class UrFUApi {
         return null;
     }
 
-    private static void CreateOneGroupCabinets(Document oneDayClasses, List<Cabinet> AllCabinets){
-        List<Cabinet> cabs = new ArrayList<>();
-
-        //List<String> timeForCabs = new ArrayList<>();
+    private static void createOneGroupCabinets(Document oneDayClasses, List<Cabinet> AllCabinets){
         int numberOfClass;
 
         Elements lessons = oneDayClasses.select("tr[class=shedule-weekday-row]");
@@ -112,14 +107,14 @@ public class UrFUApi {
             String num2 = num.text().substring(0, 1);
             numberOfClass = Integer.parseInt(num2);
 
-            String time = lesson.selectFirst("td[class=shedule-weekday-time]").text();
+            String time = Objects.requireNonNull(lesson.selectFirst("td[class=shedule-weekday-time]")).text();
             for (String s : time.split("\\s\\-\\s")){
-                String j[] = s.split("\\:");
+                String[] j = s.split("\\:");
                 String j2 = j[0]+ j[1];
                 timeForCabs.add(j2);
             }
 
-            ArrayList<String> certainLessons = new ArrayList();
+            ArrayList<String> certainLessons = new ArrayList<>();
 
             Elements classes = lesson.select("dl[class=shedule-weekday-item]");
             for (Element cl : classes){
@@ -129,10 +124,12 @@ public class UrFUApi {
             }
             if (!(certainLessons.isEmpty())){
                 for (String place : certainLessons){
-                    if (!(place.equals("Teams Microsoft")) && !(place.equals("Microsoft Teams")) && !(place.equals("Moodle"))){
+                    if (!(place.equals("Teams Microsoft"))
+                            && !(place.equals("Microsoft Teams"))
+                            && !(place.equals("Moodle"))){
                         int index = place.lastIndexOf("(гибридный формат)");
                         if (index != -1){
-                            place = place.substring(0, index) + place.substring(index + 19, place.length());
+                            place = place.substring(0, index) + place.substring(index + 19);
                         }
                         Pattern apprCab = Pattern.compile(".+\\s{1}[а-яА-Я-\\s]+\\,+\\s\\w+");//".+\\s{1}\\w+"    ".+\\s{1}[а-яА-Я-\\s]+"
                         Matcher match = apprCab.matcher(place);
@@ -141,7 +138,7 @@ public class UrFUApi {
 
                             String[] location = pr.split(" ", 2);
 
-                            Cabinet newCab = new Cabinet(location[0].toString(), location[1].toString());
+                            Cabinet newCab = new Cabinet(location[0], location[1]);
                             int isExists = AllCabinets.indexOf(newCab);
                             if (isExists == -1){
                                 newCab.occupy(convertStringToTime(timeForCabs.get(0)), convertStringToTime(timeForCabs.get(1)), numberOfClass);
@@ -150,9 +147,6 @@ public class UrFUApi {
                             else {
                                 AllCabinets.get(isExists).occupy(convertStringToTime(timeForCabs.get(0)), convertStringToTime(timeForCabs.get(1)), numberOfClass);
                             }
-
-                            //System.out.println("cab " + newCab.Number + " " + newCab.Address + newCab.getLessons());
-
                         }
 
                     }
@@ -161,15 +155,10 @@ public class UrFUApi {
         }
     }
 
-    /*private static int Isnew(Cabinet other){
-
-    }*/
-
     @Contract("null -> fail")
     private static @NotNull Time convertStringToTime(String time){
         if (time == null || time.length() % 2 != 0)
             throw new IllegalArgumentException("Time format should be HHMM or HHMMSS");
-
 
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < time.length()/2; i++){
@@ -179,7 +168,7 @@ public class UrFUApi {
             sb.append(time.charAt(i*2 + 1));
         }
 
-        String timeValue = sb.toString() + ":00";
+        String timeValue = sb + ":00";
         return Time.valueOf(timeValue);
     }
 

@@ -1,3 +1,3 @@
 package ru.telegramBot.gm.app.urfuData;
 
-public record Group(int id, int instituteId) {}
+public record Group(long id, long instituteId) {}

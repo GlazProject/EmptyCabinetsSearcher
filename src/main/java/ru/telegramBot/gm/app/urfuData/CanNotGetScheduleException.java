@@ -16,4 +16,8 @@ public class CanNotGetScheduleException extends Exception {
     public CanNotGetScheduleException(String s) {
         super(s);
     }
+
+    public CanNotGetScheduleException(Exception e){
+        super(e);
+    }
 }

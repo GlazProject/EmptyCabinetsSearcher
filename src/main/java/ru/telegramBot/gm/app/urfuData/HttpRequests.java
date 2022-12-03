@@ -7,25 +7,27 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 
 public class HttpRequests {
 
     public String request(String urlPath){
         HttpURLConnection connection = null;
-        String inputLine = "";
-        String resultData = "";
+        String inputLine;
+        StringBuilder resultData = new StringBuilder();
         InputStream is = null;
         try {
             URL url = new URL(urlPath);
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
-            connection.setConnectTimeout(300);
+            connection.setRequestProperty("User-Agent", "Chrome/81.0.4044.138");
+            connection.setConnectTimeout(500);
             connection.setReadTimeout(3000);
             is = connection.getInputStream();
-            BufferedReader bufferReader  = new BufferedReader(new InputStreamReader(is));
-            while ((inputLine = bufferReader.readLine()) != null ){
-                resultData +=inputLine + "\n";
+            BufferedReader bufferReader  = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+            while ((inputLine = bufferReader.readLine()) != null){
+                resultData.append(inputLine).append("\n");
             }
         } catch (MalformedURLException e){
             e.printStackTrace();
@@ -43,7 +45,7 @@ public class HttpRequests {
                 connection.disconnect();
             }
         }
-        return resultData;
+        return resultData.toString();
     }
 
 }
