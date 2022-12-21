@@ -12,6 +12,10 @@ public class CommandFacade extends BaseHandlersFacade {
      * Задание списка всех обработчиков, которым даётся возможность обработать данные
      */
     public CommandFacade() {
-        super(new StartCommandHandler(), new UnknownCommandHandler());
+        super(
+                new StartCommandHandler(),
+                new GetBusyCabinets(),
+                new UnknownCommandHandler()
+        );
     }
 }
