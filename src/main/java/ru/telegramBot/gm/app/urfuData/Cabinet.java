@@ -37,24 +37,11 @@ public class Cabinet
         return String.format("%s, cabinet №%s", Address, Number);
     }
 
-    /*@Override
-    public int hashCode(){
-        return (Address.hashCode() * 3 + Number) % Integer.MAX_VALUE;
-    }*/
-
-    /*@Override*/
-    /*public boolean equals(Object obj){
-        if (! (obj instanceof Cabinet other))
-            return false;
-        return other.Number == this.Number &&
-                other.Address.equals(this.Address);
-    }*/
-
     @Override
     public boolean equals(Object other) {
         if (this.getClass() != other.getClass())
             return false;
-            return ((Cabinet) other).Number.equals(this.Number) &&
-                    ((Cabinet) other).Address.equals(this.Address);
-        }
+        return ((Cabinet) other).Number.equals(this.Number) &&
+                ((Cabinet) other).Address.equals(this.Address);
+    }
 }

@@ -138,7 +138,7 @@ public class UrFUApi {
 
                             String[] location = pr.split(" ", 2);
 
-                            Cabinet newCab = new Cabinet(location[0], location[1]);
+                            Cabinet newCab = new Cabinet(location[1], location[0]);
                             int isExists = AllCabinets.indexOf(newCab);
                             if (isExists == -1){
                                 newCab.occupy(convertStringToTime(timeForCabs.get(0)), convertStringToTime(timeForCabs.get(1)), numberOfClass);
